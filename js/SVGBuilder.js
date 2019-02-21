@@ -11,7 +11,7 @@ SVGBuilder.prototype.insert = function(container, wipe) {
   container.appendChild(this.document);
 }
 
-SVGBuilder.prototype.addElement = function(elementName, attr, attrList) {
+SVGBuilder.prototype.addElement = function(elementName, attr, attrList, nodeValue) {
   var element = document.createElementNS("http://www.w3.org/2000/svg", elementName);
   attrList.forEach(function(attrName) {
     if (attrName in attr) {
@@ -23,6 +23,7 @@ SVGBuilder.prototype.addElement = function(elementName, attr, attrList) {
       }
       element.setAttribute(attrName, attrValue);
     }
+    if (nodeValue !== undefined) element.innerHTML = nodeValue;
   });
   this.document.appendChild(element);
 }
@@ -49,4 +50,8 @@ SVGBuilder.prototype.addLine = function(attr) {
   // Add new line element
   console.log("Adding line element, attr=", attr);
   this.addElement("line", attr, ["id", "style", "class", "x1", "y1", "x2", "y2", "stroke", "stroke-width"]);
+}
+
+SVGBuilder.prototype.addText = function(attr, value) {
+  this.addElement("text", attr, ["id", "style", "class", "x", "y", "fill"], value);
 }
