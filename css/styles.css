@@ -27,3 +27,20 @@ p.note {
   width: 100%;
   height: 100%;
 }
+
+rect.eco {
+  fill: #0a0;
+  stroke-width: 10px;
+  stroke: #080;
+}
+
+circle.sun {
+  fill: #ff0;
+  stroke-width: 30px;
+  stroke: #ffa;
+}
+
+line {
+  stroke-width: 15px;
+  stroke: #f00;
+}
