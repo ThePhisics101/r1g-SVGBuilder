@@ -22,3 +22,8 @@ p.note {
   background-color: #eee;
   border: 1px solid #ccc;
 }
+
+#svg-container svg {
+  width: 100%;
+  height: 100%;
+}

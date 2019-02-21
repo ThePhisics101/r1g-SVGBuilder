@@ -11,6 +11,11 @@
     }
     function runTest() {
       var svg = new SVGBuilder();
+      // Add some basic shapes. Reference: https://developer.mozilla.org/en-US/docs/Web/SVG/Tutorial/Basic_Shapes
+      svg.addRect({x:100, y:100, width:200, height:150});
+      svg.addCircle({cx:200, cy:150, r:100});
+      svg.addEllipse({rx:150, ry:70, cx:250, cy:200});
+      svg.addLine({x1:50, y1:30, x2:500, y2:350});
       svg.insert(document.getElementById("svg-container"), true);
     }
   </script>
