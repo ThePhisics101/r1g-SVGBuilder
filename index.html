@@ -9,10 +9,13 @@
     window.onload = function() {
       document.getElementById("runTest").addEventListener("click", runTest);
     }
+    function clickHandler() {
+      console.log("Click happened.");
+    }
     function runTest() {
       var svg = new SVGBuilder();
       // Add some basic shapes. Reference: https://developer.mozilla.org/en-US/docs/Web/SVG/Tutorial/Basic_Shapes
-      svg.addRect({x:100, y:100, width:200, height:150, class:"eco"});
+      svg.addRect({x:100, y:100, width:200, height:150, class:"eco", style:"cursor:pointer", onclick:clickHandler});
       svg.addCircle({cx:350, cy:130, r:100, class:"sun"});
       svg.addEllipse({rx:150, ry:70, cx:350, cy:300, fill:"#00f", stroke:"#008", "stroke-width":10});
       svg.addLine({x1:50, y1:30, x2:500, y2:350});

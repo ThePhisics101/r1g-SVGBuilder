@@ -17,6 +17,10 @@ SVGBuilder.prototype.addElement = function(elementName, attr, attrList) {
     if (attrName in attr) {
       var attrValue = attr[attrName];
       if (attrValue === null) return;
+      if (typeof(attrValue) === 'function') {
+        element[attrName] = attrValue;
+        return;
+      }
       element.setAttribute(attrName, attrValue);
     }
   });
@@ -26,7 +30,7 @@ SVGBuilder.prototype.addElement = function(elementName, attr, attrList) {
 SVGBuilder.prototype.addRect = function(attr) {
   // Add new rect element
   console.log("Adding rect element, attr=", attr);
-  this.addElement("rect", attr, ["id", "style", "class", "x", "y", "width", "height", "rx", "ry", "fill", "stroke", "stroke-width"]);
+  this.addElement("rect", attr, ["id", "style", "class", "x", "y", "width", "height", "rx", "ry", "fill", "stroke", "stroke-width", "onclick"]);
 }
 
 SVGBuilder.prototype.addCircle = function(attr) {
