@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>SVG modelēšana</title>
+  <link rel="stylesheet" href="/css/styles.css">
+  <script type="text/javascript" src="/js/SVGBuilder.js"></script>
+  <script>
+    window.onload = function() {
+      document.getElementById("runTest").addEventListener("click", runTest);
+    }
+    function runTest() {
+      var svg = new SVGBuilder();
+      svg.insert(document.getElementById("svg-container"), true);
+    }
+  </script>
+</head>
+<body>
+  <h1>SVGBuilder: SVG modelēšana ar JavaScript</h1>
+  <p class="note">
+    Šis projekts ir veltīts ērtai dinamisku, interaktīvu SVG modeļu veidošanai.
+  </p>
+  <button id="runTest">Run test</button>
+  <div id="svg-container">Šo tekstu nomainīs SVG elements</div>
+</body>
+</html>

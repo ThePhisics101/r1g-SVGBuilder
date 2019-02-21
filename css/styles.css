@@ -1,0 +1,24 @@
+body {
+  margin: 10px;
+  padding: 0px;
+}
+h1 {
+  margin: 4px;
+  font-size: 16px;
+  font-family: sans-serif;
+}
+p.note {
+  margin: 4px;
+  padding: 4px;
+  font-size: 12px;
+  font-family: sans-serif;
+  background-color: #ddd;
+}
+
+#svg-container {
+  margin-top: 10px;
+  width: 700px;
+  height: 400px;
+  background-color: #eee;
+  border: 1px solid #ccc;
+}
