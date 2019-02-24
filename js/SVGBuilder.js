@@ -83,3 +83,31 @@ function SVGGroup(root) {
 
 // Inherit from SVGContainer
 SVGGroup.prototype = new SVGContainer();
+
+SVGGroup.prototype.getTransform = function() {
+  if (!this.transform) this.transform = new SVGTransform(this.root);
+  return this.transform;
+}
+
+/* class SVGTransform *********************************************************************************************************************/
+
+function SVGTransform(targetNode) {
+  this.targetNode = targetNode;
+  this.list = []; // List of transform definitions
+}
+
+SVGTransform.prototype.addDefinition = function(fn, params) {
+  if (!["matrix", "translate", "scale", "rotate", "skewX", "skewY"].includes(fn)) return;
+  this.list.push({
+    fn    : fn,
+    params: params
+  });
+}
+
+SVGTransform.prototype.apply = function() {
+  var transformList = [];
+  this.list.forEach(function(definition) {
+    transformList.push(definition.fn + "(" + definition.params.join(" ") + ")");
+  });
+  this.targetNode.setAttribute("transform", transformList.join(" "));
+}
