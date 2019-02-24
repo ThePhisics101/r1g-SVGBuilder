@@ -25,6 +25,28 @@
       svg.addLine({x1:50, y1:30, x2:500, y2:350});
       svg.addText({x:10, y:360, x2:500, y2:350, fill:"#f0f", style:"font-family:sans-serif; font-size:35px"}, "Žigla, brūna lapsa lec pāri slinkam sunim");
       svg.insert(document.getElementById("svg-container"), true);
+      // Animate the group
+      var params = {
+        g: g,
+        x: 0,
+        y: 0,
+        dx: 3,
+        dy: 3,
+        maxX: 220,
+        maxY: 180,
+        angle: 0
+      }
+      function animate() {
+        params.x += params.dx;
+        params.y += params.dy;
+        if (params.x > params.maxX || params.x < 0) params.dx *= -1; 
+        if (params.y > params.maxY || params.y < 0) params.dy *= -1; 
+        params.angle += 1;
+        params.g.translate(params.x, params.y);
+        params.g.rotate(params.angle, 350, 200);
+        window.setTimeout(animate, 50);
+      }
+      animate();
     }
   </script>
 </head>
