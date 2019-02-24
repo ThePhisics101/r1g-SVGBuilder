@@ -84,24 +84,56 @@ function SVGGroup(root) {
 // Inherit from SVGContainer
 SVGGroup.prototype = new SVGContainer();
 
-SVGGroup.prototype.getTransform = function() {
-  if (!this.transform) this.transform = new SVGTransform(this.root);
+SVGGroup.prototype.getTransform = function(template) {
+  if (!this.transform) this.transform = new SVGTransform(this.root, template);
   return this.transform;
+}
+
+SVGGroup.prototype.translate = function(x, y) {
+  var t = this.getTransform("translate+rotate");
+  if (t.template == "translate+rotate") {
+    t.list[0].params = [x, y];
+    t.apply();
+  }
+}
+
+SVGGroup.prototype.rotate = function(angle, cx, cy) {
+  var t = this.getTransform("translate+rotate");
+  if (t.template == "translate+rotate") {
+    t.list[1].params = [angle, cx, cy];
+    t.apply();
+  }
 }
 
 /* class SVGTransform *********************************************************************************************************************/
 
-function SVGTransform(targetNode) {
+function SVGTransform(targetNode, template) {
   this.targetNode = targetNode;
   this.list = []; // List of transform definitions
+  switch (template) {
+    case "translate+rotate":
+      this.addDefinition("translate", [0, 0]);
+      this.addDefinition("rotate", [0, 0, 0]);
+      this.template = template;
+      break;
+  }
+  this.template = template ? template : null;
 }
 
-SVGTransform.prototype.addDefinition = function(fn, params) {
+SVGTransform.prototype.addDefinition = function(fn, params, apply) {
+  if (this.template) return;
   if (!["matrix", "translate", "scale", "rotate", "skewX", "skewY"].includes(fn)) return;
   this.list.push({
     fn    : fn,
     params: params
   });
+  if (apply) this.apply();
+}
+
+SVGTransform.prototype.clear = function(apply) {
+  this.list = [];
+  this.template = null;
+  if (apply) this.apply();
 }
 
 SVGTransform.prototype.apply = function() {
