@@ -3,45 +3,42 @@
 <head>
   <meta charset="UTF-8">
   <title>SVG modelēšana</title>
-  <link rel="stylesheet" href="/css/styles.css">
-  <script type="text/javascript" src="/js/SVGBuilder.js"></script>
+  <link rel="stylesheet" href="css/styles.css">
+  <script type="text/javascript" src="js/SVGBuilder.js"></script>
   <script>
-    window.onload = function() {
+    window.onload = () => {
       document.getElementById("runTest").addEventListener("click", runTest);
-    }
+    };
     function clickHandler() {
       console.log("Click happened.");
     }
     function runTest() {
-      var svg = new SVGBuilder();
+      const svg = new SVGBuilder();
       console.log(svg);
       // Add some basic shapes. Reference: https://developer.mozilla.org/en-US/docs/Web/SVG/Tutorial/Basic_Shapes
-      svg.addRect({x:100, y:100, width:200, height:150, class:"eco", style:"cursor:pointer", onclick:clickHandler});
-      var g = svg.addGroup();
-      g.addCircle({cx:350, cy:130, r:100, class:"sun"});
-      g.addEllipse({rx:150, ry:70, cx:350, cy:300, fill:"#00f", stroke:"#008", "stroke-width":10});
+      svg.addRect({x: 100, y: 100, width: 200, height: 150, class: "eco", style: "cursor:pointer", onclick: clickHandler});
+      const g = svg.addGroup();
+      g.addCircle({cx: 350, cy: 130, r: 100, class: "sun"});
+      g.addEllipse({rx: 150, ry: 70, cx: 350, cy: 300, fill: "#00f", stroke: "#008", "stroke-width": 10});
       g.translate(200, 100);
       g.rotate(45, 350, 200);
-      svg.addLine({x1:50, y1:30, x2:500, y2:350});
-      svg.addText({x:10, y:360, x2:500, y2:350, fill:"#f0f", style:"font-family:sans-serif; font-size:35px"}, "Žigla, brūna lapsa lec pāri slinkam sunim");
+      svg.addLine({x1: 50, y1: 30, x2: 500, y2: 350});
+      svg.addText({x: 10, y: 360, x2: 500, y2: 350, fill: "#f0f", style: "font-family:sans-serif; font-size:35px"}, "Žigla, brūna lapsa lec pāri slinkam sunim");
       svg.insert(document.getElementById("svg-container"), true);
       // Animate the group
-      var params = {
+      const params = {
         g: g,
-        x: 0,
-        y: 0,
-        dx: 3,
-        dy: 3,
-        maxX: 220,
-        maxY: 180,
+        x: 0, y: 0,
+        dx: 3, dy: 3,
+        maxX: 220, maxY: 180,
         angle: 0
-      }
+      };
       function animate() {
         params.x += params.dx;
         params.y += params.dy;
-        if (params.x > params.maxX || params.x < 0) params.dx *= -1; 
-        if (params.y > params.maxY || params.y < 0) params.dy *= -1; 
-        params.angle += 1;
+        if (params.x > params.maxX || params.x < 0) params.dx *= -1;
+        if (params.y > params.maxY || params.y < 0) params.dy *= -1;
+        params.angle++;
         params.g.translate(params.x, params.y);
         params.g.rotate(params.angle, 350, 200);
         window.setTimeout(animate, 50);
